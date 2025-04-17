@@ -24,13 +24,13 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Client - ${{ matrix.platform }}
+          name: voxel_${{ matrix.platform }}
           path: build
       - name: Upload linux to release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: build/game
+          file: build/voxel_linux.zip
           asset_name: mything
           tag: latest
           overwrite: true
@@ -39,7 +39,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: build/game.exe
+          file: build/voxel_windows.zip
           asset_name: mything
           tag: latest
           overwrite: true
