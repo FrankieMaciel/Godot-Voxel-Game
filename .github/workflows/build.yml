@@ -27,7 +27,7 @@ jobs:
           name: voxel_${{ matrix.platform }}
           path: build
       - name: Download ${{ matrix.platform }} artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: voxel_${{ matrix.platform }}
           path: artifacts/voxel_${{ matrix.platform }}
