@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        platform: [linux, windows]
+        platform: [linux, windows, mac]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -26,3 +26,21 @@ jobs:
         with:
           name: Client - ${{ matrix.platform }}
           path: build
+      - name: Upload linux to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/game
+          asset_name: mything
+          tag: latest
+          overwrite: true
+          body: "This is my release text"
+      - name: Upload windows to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/game.exe
+          asset_name: mything
+          tag: latest
+          overwrite: true
+          body: "This is my release text"
