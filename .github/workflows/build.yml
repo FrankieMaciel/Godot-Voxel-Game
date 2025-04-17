@@ -9,13 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        platform:
-        - name: Windows
-          file: game.exe
-        - name: MacOS
-          file: game.zip
-        - name: Linux
-          file: game
+        platform: [linux, windows, mac]
     steps:
       - uses: actions/checkout@v4
         with:
