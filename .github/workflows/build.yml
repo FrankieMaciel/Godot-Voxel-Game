@@ -21,21 +21,11 @@ jobs:
           name: example
           preset: ${{ matrix.platform }}
           debugMode: "true"
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: voxel_${{ matrix.platform }}
-          path: build
-      - name: Download ${{ matrix.platform }} artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: voxel_${{ matrix.platform }}
-          path: artifacts/voxel_${{ matrix.platform }}
       - name: Upload ${{ matrix.platform }} to release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./artifacts/voxel_${{ matrix.platform }}
+          file: ./build/voxel_${{ matrix.platform }}.zip
           asset_name: voxel_${{ matrix.platform }}.zip
           tag: Latest
           overwrite: true
