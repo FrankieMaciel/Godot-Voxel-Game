@@ -30,7 +30,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: build/voxel_linux.zip
+          file: ./build/voxel_linux.zip
           asset_name: mything
           tag: latest
           overwrite: true
@@ -39,7 +39,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: build/voxel_windows.zip
+          file: ./build/voxel_windows.zip
           asset_name: mything
           tag: latest
           overwrite: true
