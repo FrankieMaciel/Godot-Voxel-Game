@@ -31,11 +31,15 @@ jobs:
         with:
           name: voxel_${{ matrix.platform }}
           path: artifacts/voxel_${{ matrix.platform }}
+      - name: Generate artifact name
+        id: generate-name
+        run: |
+          echo "::set-output name=artifact::${{ github.event.repository.name }}.${{ github.ref_name }}.${{ github.run_id }}.zip"
       - name: Upload ${{ matrix.platform }} to release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./artifacts/voxel_${{ matrix.platform }}/voxel_${{ matrix.platform }}.zip
+          file: ./artifacts/voxel_${{ matrix.platform }}/${{ steps.generate-name.outputs.artifact }}
           asset_name: mything
           tag: latest
           overwrite: true
