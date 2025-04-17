@@ -37,6 +37,6 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ./artifacts/voxel_${{ matrix.platform }}
           asset_name: voxel_${{ matrix.platform }}.zip
-          tag: latest
+          tag: Latest
           overwrite: true
           body: "This is my release text"
