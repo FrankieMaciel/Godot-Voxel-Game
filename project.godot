@@ -17,3 +17,7 @@ config/icon="res://icon.svg"
 [dotnet]
 
 project/assembly_name="Voxel-Game"
+
+[rendering]
+
+textures/vram_compression/import_etc2_astc=true
