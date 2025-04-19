@@ -1,0 +1,26 @@
+extends Node
+
+var world_node: Node3D = null
+const chunks_size: int = 16
+const chunks_size_with_border: int = chunks_size + 2
+
+var player: Player
+var render_distance = 8
+
+const directions = {
+	"up": Vector3(0,1,0),
+	"down": Vector3(0,-1,0),
+	"left": Vector3(1,0,0),
+	"right": Vector3(-1,0,0),
+	"front": Vector3(0,0,1),
+	"back": Vector3(0,0,-1),
+}
+
+var directions_indeces = {}
+
+func _ready() -> void:
+	var i = 0
+	for dir in directions:
+		directions_indeces[dir] = i
+		i += 1
+	
