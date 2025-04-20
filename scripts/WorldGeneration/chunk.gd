@@ -2,6 +2,7 @@ extends Node
 class_name Chunk
 
 var chunk_position: Vector3 = Vector3.ZERO
+var chunk_mesh_node: Node3D
 var data: Array[int] = []
 var isEmpty: bool = true
 var isFull: bool = false

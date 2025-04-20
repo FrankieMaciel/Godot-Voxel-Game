@@ -14,6 +14,8 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var mouse_sens = 0.3
 var camera_anglev = 0
 
+var lastChunkPos: Vector3
+
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	Global.player = self
@@ -51,6 +53,12 @@ func _input(event):
 				
 
 func _physics_process(_delta):
+	$Label.text = str(global_position)
+	var chunk_pos = floor(global_position / Global.chunks_size) * Global.chunks_size
+	if (chunk_pos != lastChunkPos):
+		Global.player_position = global_position
+		Global.world_node.load_chunks()
+	lastChunkPos = chunk_pos
 	#if (freeze): return
 	#if (playerRay.is_colliding()):
 		#$MeshInstance3D.visible = true

@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://bglef3oxee80r"]
+
+[ext_resource type="Texture2D" uid="uid://dddvc5wkv8pv1" path="res://Materials/Stone.png" id="1_in53e"]
+[ext_resource type="Texture2D" uid="uid://drx6mmwsqmroc" path="res://Materials/teste.png" id="2_ud3qs"]
+
+[resource]
+albedo_texture = ExtResource("1_in53e")
+ao_texture = ExtResource("2_ud3qs")
+texture_filter = 0
+distance_fade_min_distance = 80.0
+distance_fade_max_distance = 64.0

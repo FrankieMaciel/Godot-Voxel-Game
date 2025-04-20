@@ -1,7 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://u7vhh53myrc1"]
+[gd_scene load_steps=9 format=3 uid="uid://u7vhh53myrc1"]
 
 [ext_resource type="Script" uid="uid://bq1utuhbb8ko4" path="res://scripts/WorldGeneration/world.gd" id="1_js7pq"]
 [ext_resource type="Script" uid="uid://cxd8dn0mo7uos" path="res://scripts/Player/player.gd" id="3_bcbcq"]
+
+[sub_resource type="Gradient" id="Gradient_2dftf"]
+colors = PackedColorArray(0.702154, 0.785672, 0.915872, 1, 0.360411, 0.663411, 0.813425, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bcbcq"]
+gradient = SubResource("Gradient_2dftf")
+fill_from = Vector2(1, 1)
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_js7pq"]
+panorama = SubResource("GradientTexture2D_bcbcq")
+
+[sub_resource type="Sky" id="Sky_eu7l1"]
+sky_material = SubResource("PanoramaSkyMaterial_js7pq")
+
+[sub_resource type="Environment" id="Environment_p1v5b"]
+background_mode = 2
+sky = SubResource("Sky_eu7l1")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2dftf"]
 size = Vector3(0.5, 1.7, 0.5)
@@ -9,11 +26,14 @@ size = Vector3(0.5, 1.7, 0.5)
 [node name="World" type="Node3D"]
 script = ExtResource("1_js7pq")
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_p1v5b")
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)
 
 [node name="Player" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64, 32, 64)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 32, 0)
 script = ExtResource("3_bcbcq")
 
 [node name="Camera3D" type="Camera3D" parent="Player"]
@@ -21,3 +41,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 shape = SubResource("BoxShape3D_2dftf")
+
+[node name="Label" type="Label" parent="Player"]
+offset_right = 40.0
+offset_bottom = 23.0

@@ -2,6 +2,7 @@ extends MeshInstance3D
 class_name MeshGeneration
 
 var cgp: Vector3
+var spatialMaterial : StandardMaterial3D = preload("res://Materials/chunk_material.tres")
 
 func _init(chunk: Chunk) -> void:
 	connect("tree_entered", add_position_offset)
@@ -30,6 +31,7 @@ func _init(chunk: Chunk) -> void:
 	collision.shape = mesh.create_trimesh_shape()
 	static_body.add_child(collision)
 	add_child(static_body)
+	material_override = spatialMaterial
 	
 func create_block(st: SurfaceTool, offset: Vector3, direction: String):
 	offset -= Vector3(1,0,1)
@@ -43,20 +45,26 @@ func create_block(st: SurfaceTool, offset: Vector3, direction: String):
 	var h := Vector3(0, 0, 1) + offset
 
 	var vertices := [ 		# faces (triangles)
-		[a,b,f,  a,f,e],  	# T
-		[h,g,c,  h,c,d],  	# B
-		[f,b,c,  f,c,g],  	# E
-		[a,e,h,  a,h,d],  	# W
-		[e,f,g,  e,g,h],  	# S
-		[b,a,d,  b,d,c],  	# N
+		[a,b,f,  a,f,e],  	# Up
+		[h,g,c,  h,c,d],  	# Down
+		[f,b,c,  f,c,g],  	# Left
+		[a,e,h,  a,h,d],  	# Rigth
+		[e,f,g,  e,g,h],  	# Front
+		[b,a,d,  b,d,c],  	# Back
+	]
+	const UVs : Array = [
+		Vector2(0,0),
+		Vector2(1,0),
+		Vector2(1,1),
+		Vector2(0,0),
+		Vector2(1,1),
+		Vector2(0,1)
 	]
 	var i = Global.directions_indeces[direction]
 	for v in range(6):
-		st.set_color(Color.RED)
 		st.set_normal(Global.directions[direction])
-		#st.set_uv(UVs[v])
+		st.set_uv(UVs[v])
 		st.add_vertex(vertices[i][v])
-
 
 func add_position_offset() -> void:
 	global_position = cgp
