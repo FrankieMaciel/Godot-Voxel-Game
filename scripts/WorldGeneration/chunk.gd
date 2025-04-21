@@ -21,6 +21,10 @@ func get_block_at(pos: Vector3):
 	var max_i = Global.chunks_size_with_border
 	return data[(pos.x * (max_i * max_i)) + (pos.y * max_i) + pos.z];
 	
+func set_block_at(pos: Vector3, id: int):
+	var max_i = Global.chunks_size_with_border
+	data[(pos.x * (max_i * max_i)) + (pos.y * max_i) + pos.z] = id;
+	
 func index_to_coordinates3D(index):
 	var max_i = Global.chunks_size_with_border
 	var x = index / (max_i * max_i)

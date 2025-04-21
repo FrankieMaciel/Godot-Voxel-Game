@@ -2,7 +2,7 @@ extends MeshInstance3D
 class_name MeshGeneration
 
 var cgp: Vector3
-var spatialMaterial : StandardMaterial3D = preload("res://Materials/chunk_material.tres")
+var chunk_shader : Shader = preload("res://Materials/Chunk.gdshader").duplicate(true)
 
 func _init(chunk: Chunk) -> void:
 	connect("tree_entered", add_position_offset)
@@ -40,13 +40,17 @@ func _init(chunk: Chunk) -> void:
 	mesh = st.commit()
 	var static_body = StaticBody3D.new()
 	var collision = CollisionShape3D.new()
+	var shaderMaterial = ShaderMaterial.new()
 	collision.shape = mesh.create_trimesh_shape()
+	shaderMaterial.shader = chunk_shader
 	static_body.add_child(collision)
+	shaderMaterial.set_shader_parameter('blocks_ids', chunk.data.duplicate())
+	shaderMaterial.set_shader_parameter('textures', Block.texture_array.duplicate())
 	add_child(static_body)
-	material_override = spatialMaterial
+	material_override = shaderMaterial
 	
 func create_block(st: SurfaceTool, offset: Vector3, direction: String, size: int):
-	offset -= Vector3(1,0,1)
+	offset -= Vector3(1,1,1)
 	var a := Vector3(0, 1, 0) + offset
 	var b := Vector3(1, 1, 0) + offset
 	var c := Vector3(1, 0, 0) + offset
@@ -79,8 +83,8 @@ func create_block(st: SurfaceTool, offset: Vector3, direction: String, size: int
 	uv_vec[max_idx] = size
 	var i = Global.directions_indeces[direction]
 	for v in range(6):
-		st.set_normal(Global.directions[direction])
 		st.set_uv(UVs[v] * uv_vec)
+		st.set_normal(Global.directions[direction])
 		st.add_vertex(vertices[i][v])
 
 func add_position_offset() -> void:

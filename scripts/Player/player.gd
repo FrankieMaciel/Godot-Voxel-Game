@@ -22,6 +22,7 @@ func _ready():
 	pass
 
 func _input(event):
+	if (Global.is_paused): return
 	if event is InputEventMouseMotion:
 		rotate_y(deg_to_rad(-event.relative.x * mouse_sens))
 		
@@ -51,15 +52,21 @@ func _input(event):
 			#MOUSE_BUTTON_WHEEL_DOWN:
 				#print("Scroll wheel down")
 				
+func  _process(delta: float) -> void:
+	if Input.is_action_just_pressed("ui_menu"):
+		if (not Global.is_paused):
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			Global.is_paused = true
+			$ColorRect.visible = true
+		else:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+			Global.is_paused = false
+			$ColorRect.visible = false
+				
 
 func _physics_process(_delta):
-	$Label.text = str(Engine.get_frames_per_second()) + " " + str(global_position)
-	var chunk_pos = floor(global_position / Global.chunks_size) * Global.chunks_size
-	if (chunk_pos != lastChunkPos):
-		Global.player_position = global_position
-		Global.world_node.load_chunks()
-	lastChunkPos = chunk_pos
-	
+	if (Global.is_paused): return
+	$Label.text = str(Engine.get_frames_per_second()) + " " + str(global_position) + " Esc para pausar"
 	SPEED = defaultSpeed
 	#velocity.y -= (gravity * 5) * delta
 	velocity.y = 0

@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://u7vhh53myrc1"]
+[gd_scene load_steps=11 format=3 uid="uid://u7vhh53myrc1"]
 
 [ext_resource type="Script" uid="uid://bq1utuhbb8ko4" path="res://scripts/WorldGeneration/world.gd" id="1_js7pq"]
 [ext_resource type="Script" uid="uid://cxd8dn0mo7uos" path="res://scripts/Player/player.gd" id="3_bcbcq"]
+[ext_resource type="Script" uid="uid://dkb0mjjfeaouj" path="res://scripts/Ui/render_distence.gd" id="3_js7pq"]
 
 [sub_resource type="Gradient" id="Gradient_2dftf"]
 colors = PackedColorArray(0.702154, 0.785672, 0.915872, 1, 0.360411, 0.663411, 0.813425, 1)
@@ -15,6 +16,7 @@ panorama = SubResource("GradientTexture2D_bcbcq")
 
 [sub_resource type="Sky" id="Sky_eu7l1"]
 sky_material = SubResource("PanoramaSkyMaterial_js7pq")
+radiance_size = 0
 
 [sub_resource type="Environment" id="Environment_p1v5b"]
 background_mode = 2
@@ -48,7 +50,47 @@ shape = SubResource("BoxShape3D_2dftf")
 offset_right = 40.0
 offset_bottom = 23.0
 
+[node name="ColorRect" type="ColorRect" parent="Player"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0, 0, 0, 0.231373)
+
+[node name="HSlider" type="HSlider" parent="Player/ColorRect"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -274.0
+offset_top = 42.0
+offset_right = -39.0
+offset_bottom = 118.0
+grow_horizontal = 0
+min_value = 4.0
+max_value = 32.0
+value = 8.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Player/ColorRect"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -265.0
+offset_top = 32.0
+offset_right = -130.0
+offset_bottom = 55.0
+grow_horizontal = 0
+text = "Render distance -"
+script = ExtResource("3_js7pq")
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0)
 visible = false
 mesh = SubResource("BoxMesh_2dftf")
+
+[connection signal="value_changed" from="Player/ColorRect/HSlider" to="." method="_on_h_slider_value_changed"]

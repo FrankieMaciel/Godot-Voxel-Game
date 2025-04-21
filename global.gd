@@ -10,6 +10,8 @@ var player: Player
 var player_position: Vector3
 var render_distance = 8
 
+var is_paused = false
+
 const directions = {
 	"up": Vector3(0,1,0),
 	"down": Vector3(0,-1,0),
