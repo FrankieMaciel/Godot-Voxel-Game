@@ -53,22 +53,12 @@ func _input(event):
 				
 
 func _physics_process(_delta):
-	$Label.text = str(global_position)
+	$Label.text = str(Engine.get_frames_per_second()) + " " + str(global_position)
 	var chunk_pos = floor(global_position / Global.chunks_size) * Global.chunks_size
 	if (chunk_pos != lastChunkPos):
 		Global.player_position = global_position
 		Global.world_node.load_chunks()
 	lastChunkPos = chunk_pos
-	#if (freeze): return
-	#if (playerRay.is_colliding()):
-		#$MeshInstance3D.visible = true
-		#$TextureRect.visible = true
-		#var block_pos = playerRay.get_collision_point() - (playerRay.get_collision_normal() / 2)
-		#var blockPos = floor(block_pos) + Vector3(0.5,0.5,0.5)
-		#$MeshInstance3D.global_position = blockPos
-	#else:
-		#$MeshInstance3D.visible = false
-		#$TextureRect.visible = false
 	
 	SPEED = defaultSpeed
 	#velocity.y -= (gravity * 5) * delta

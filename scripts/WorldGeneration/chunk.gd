@@ -7,6 +7,7 @@ var data: Array[int] = []
 var isEmpty: bool = true
 var isFull: bool = false
 var wasModified: bool = false
+var hasMesh = false
 
 var generateChunk = null
 
@@ -32,3 +33,25 @@ func is_on_chunk_border(block_position: Vector3):
 	var yCheck = block_position.y == 0 || block_position.y == Global.chunks_size_with_border - 1
 	var zCheck = block_position.z == 0 || block_position.z == Global.chunks_size_with_border - 1
 	return xCheck || yCheck || zCheck
+	
+func create_mesh():
+	if (chunk_position.y > Global.world_max_y): return
+	if (chunk_position.y < Global.world_min_y): return
+	if (isEmpty || isFull || hasMesh): return
+	var new_chunk_mesh = MeshGeneration.new(self)
+	chunk_mesh_node = new_chunk_mesh
+	hasMesh = true
+	Global.world_node.call_deferred_thread_group("add_child", new_chunk_mesh)
+	
+func remove_mesh():
+	if (not hasMesh): return
+	chunk_mesh_node.call_deferred_thread_group("queue_free")
+	hasMesh = false
+
+func hide_mesh():
+	if (not hasMesh): return
+	chunk_mesh_node.visible = false
+	
+func show_mesh():
+	if (not hasMesh): return
+	chunk_mesh_node.visible = true

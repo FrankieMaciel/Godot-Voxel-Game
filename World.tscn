@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://u7vhh53myrc1"]
+[gd_scene load_steps=10 format=3 uid="uid://u7vhh53myrc1"]
 
 [ext_resource type="Script" uid="uid://bq1utuhbb8ko4" path="res://scripts/WorldGeneration/world.gd" id="1_js7pq"]
 [ext_resource type="Script" uid="uid://cxd8dn0mo7uos" path="res://scripts/Player/player.gd" id="3_bcbcq"]
@@ -23,6 +23,8 @@ sky = SubResource("Sky_eu7l1")
 [sub_resource type="BoxShape3D" id="BoxShape3D_2dftf"]
 size = Vector3(0.5, 1.7, 0.5)
 
+[sub_resource type="BoxMesh" id="BoxMesh_2dftf"]
+
 [node name="World" type="Node3D"]
 script = ExtResource("1_js7pq")
 
@@ -45,3 +47,8 @@ shape = SubResource("BoxShape3D_2dftf")
 [node name="Label" type="Label" parent="Player"]
 offset_right = 40.0
 offset_bottom = 23.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0)
+visible = false
+mesh = SubResource("BoxMesh_2dftf")

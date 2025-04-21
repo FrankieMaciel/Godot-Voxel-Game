@@ -12,4 +12,6 @@ func generate(_data: Array[int], chunk_position: Vector3, block_position: Vector
 	var block_id = Block.getBlockId("Air")
 	var value = noise.get_noise_2d(block_global_position.x, block_global_position.z)
 	if (block_global_position.y < (value * 16) + 8): block_id = Block.getBlockId("Stone")
+	var cave_value = noise.get_noise_3d(block_global_position.x * 2, block_global_position.y * 2, block_global_position.z * 2)
+	if (cave_value > 0.5): block_id = Block.getBlockId("Air")
 	return block_id

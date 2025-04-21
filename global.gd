@@ -8,7 +8,7 @@ const chunks_size_with_border: int = chunks_size + 2
 
 var player: Player
 var player_position: Vector3
-var render_distance = 10
+var render_distance = 8
 
 const directions = {
 	"up": Vector3(0,1,0),
@@ -20,10 +20,12 @@ const directions = {
 }
 
 var directions_indeces = {}
+var indeces_to_directions = {}
 
 func _ready() -> void:
 	var i = 0
 	for dir in directions:
+		indeces_to_directions[i] = dir
 		directions_indeces[dir] = i
 		i += 1
 	
