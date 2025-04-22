@@ -31,6 +31,7 @@ func _ready() -> void:
 	
 	print(images_array)
 	texture_array.create_from_images(images_array)
+	ResourceSaver.save(texture_array, "res://texture_2d_array.res", ResourceSaver.FLAG_COMPRESS)
 		
 func getBlockId(block_name: String):
 	return ids[block_name]
