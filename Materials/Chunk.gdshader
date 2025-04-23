@@ -10,14 +10,13 @@ varying flat int normal_index;
 void vertex() {
 	my_vertex = VERTEX;
 	my_normal = NORMAL;
-	vec3 n_normal = normalize(NORMAL * -2.0 - 1.0);
 	normal_index = 6;
-	if (round(NORMAL) == vec3(1.,0.,0.)) { normal_index = 0; }
-	if (round(NORMAL) == vec3(0.,1.,0.)) { normal_index = 1; }
-	if (round(NORMAL) == vec3(0.,0.,1.)) { normal_index = 2; }
-	if (round(NORMAL) == vec3(-1.,0.,0.)) { normal_index = 3; }
-	if (round(NORMAL) == vec3(0.,-1.,0.)) { normal_index = 4; }
-	if (round(NORMAL) == vec3(0.,0.,-1.)) { normal_index = 5; }
+	if (NORMAL.x == 1.) { normal_index = 1; }
+	if (NORMAL.y == 1.) { normal_index = 2; }
+	if (NORMAL.z == 1.) { normal_index = 3; }
+	if (NORMAL.x == -1.) { normal_index = 4; }
+	if (NORMAL.y == -1.) { normal_index = 5; }
+	if (NORMAL.z == -1.) { normal_index = 6; }
 	// Called for every vertex the material is visible on.
 }
 
@@ -37,8 +36,8 @@ void fragment() {
 	//	ALBEDO = color2;
 	//}
 	int block_id = blocks_ids[bi];
-	if (block_id == 3 && normal_index != 1) { block_id = 4; }
-	if (block_id == 3 && normal_index == 4) { block_id = 2; }
+	if (block_id == 3 && normal_index == 5) { block_id = 2; }
+	if (block_id == 3 && normal_index != 2) { block_id = 4; }
 	vec4 albedo_tex = texture(textures,vec3(UV,float(block_id)));
 	ALBEDO = albedo_tex.rgb;
 	ROUGHNESS = 1.0;

@@ -9,7 +9,7 @@ var freeze = false
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var playerCam = $Camera3D
-#@onready var playerRay = $Camera3D/RayCast3D
+@onready var playerRay = $Camera3D/RayCast3D
 
 var mouse_sens = 0.3
 var camera_anglev = 0
@@ -33,18 +33,14 @@ func _input(event):
 			camera_anglev = new_camera_anglev
 			$Camera3D.rotate_x(deg_to_rad(changev))
 			
-	#if event is InputEventMouseButton and event.pressed:
-		#match event.button_index:
-			#MOUSE_BUTTON_LEFT:
-				#if (playerRay.is_colliding()):
-					#$Camera3D/Arma/CPUParticles3D.emitting = true
-					#$Camera3D/Arma/Timer.start()
-					#Globals.World.updateChunkBlockInfo(playerRay.get_collision_point(), playerRay.get_collision_normal(), 0)
-			#MOUSE_BUTTON_RIGHT:
-				#if (playerRay.is_colliding()):
-					#$Camera3D/Arma/CPUParticles3D.emitting = true
-					#$Camera3D/Arma/Timer.start()
-					#Globals.World.updateChunkBlockInfo(playerRay.get_collision_point(), playerRay.get_collision_normal(), 3)
+	if event is InputEventMouseButton and event.pressed:
+		match event.button_index:
+			MOUSE_BUTTON_LEFT:
+				if (playerRay.is_colliding()):
+					Global.world_node.updateChunkBlockInfo(playerRay.get_collision_point(), playerRay.get_collision_normal(), 0)
+			MOUSE_BUTTON_RIGHT:
+				if (playerRay.is_colliding()):
+					Global.world_node.updateChunkBlockInfo(playerRay.get_collision_point(), playerRay.get_collision_normal(), 1)
 					
 				#print("Right mouse button")
 			#MOUSE_BUTTON_WHEEL_UP:
@@ -52,7 +48,7 @@ func _input(event):
 			#MOUSE_BUTTON_WHEEL_DOWN:
 				#print("Scroll wheel down")
 				
-func  _process(delta: float) -> void:
+func  _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ui_menu"):
 		if (not Global.is_paused):
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)

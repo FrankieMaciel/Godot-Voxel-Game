@@ -10,6 +10,6 @@ func generate(chunk: Chunk, generation_function: Callable) -> void:
 		var block_position = chunk.index_to_coordinates3D(block_index)
 		var block_id = generation_function.call(chunk, block_position)
 		chunk.data[block_index] = block_id
-		if (block_id == 1 and not chunk.is_on_chunk_border(block_position)):
+		if (block_id != 0 and not chunk.is_on_chunk_border(block_position)):
 			chunk.isEmpty = false
-		else: chunk.isFull = false
+		if (block_id == 0): chunk.isFull = false

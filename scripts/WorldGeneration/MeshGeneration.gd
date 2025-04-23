@@ -3,6 +3,7 @@ class_name MeshGeneration
 
 var cgp: Vector3
 var chunk_shader : Shader = preload("res://Materials/Chunk.gdshader").duplicate(true)
+var collission_ref: CollisionShape3D
 
 func _init(chunk: Chunk) -> void:
 	connect("tree_entered", add_position_offset)
@@ -44,8 +45,9 @@ func _init(chunk: Chunk) -> void:
 	collision.shape = mesh.create_trimesh_shape()
 	shaderMaterial.shader = chunk_shader
 	static_body.add_child(collision)
-	shaderMaterial.set_shader_parameter('blocks_ids', chunk.data.duplicate())
-	shaderMaterial.set_shader_parameter('textures', Block.texture_array.duplicate())
+	shaderMaterial.set_shader_parameter('blocks_ids', chunk.data.duplicate(true))
+	shaderMaterial.set_shader_parameter('textures', Block.texture_array.duplicate(true))
+	collission_ref = collision
 	add_child(static_body)
 	material_override = shaderMaterial
 	
