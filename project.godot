@@ -17,7 +17,6 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Global="*res://global.gd"
 Config="*res://Config.cs"
 Block="*res://Block.cs"
 
