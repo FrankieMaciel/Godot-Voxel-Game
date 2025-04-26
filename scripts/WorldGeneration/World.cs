@@ -135,4 +135,8 @@ public partial class World : Node3D
         if (pos.Z == 1) nz = -1;
         return new Vector3(nx,ny,nz);
     }
+    public void _on_h_slider_value_changed(float value) {
+        Config.render_distance = (int)value;
+        half_render_dis = (int)Config.render_distance / 2;
+    }
 }
