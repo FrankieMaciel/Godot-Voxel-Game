@@ -35,11 +35,12 @@ void fragment() {
 	//} else {
 	//	ALBEDO = color2;
 	//}
-	int block_id = blocks_ids[bi];
-	if (block_id == 3 && normal_index == 5) { block_id = 2; }
-	if (block_id == 3 && normal_index != 2) { block_id = 4; }
+	int block_id = blocks_ids[bi] & 0xFF;
+	//if (block_id == 3 && normal_index == 5) { block_id = 2; }
+	//if (block_id == 3 && normal_index != 2) { block_id = 4; }
 	vec4 albedo_tex = texture(textures,vec3(UV,float(block_id)));
-	ALBEDO = albedo_tex.rgb;
+	vec3 color3 = vec3(float(block_id * 100), 0., 0.);
+	ALBEDO = color3;
 	ROUGHNESS = 1.0;
 }
 

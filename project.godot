@@ -12,13 +12,14 @@ config_version=5
 
 config/name="Voxel-Game"
 run/main_scene="uid://u7vhh53myrc1"
-config/features=PackedStringArray("4.4", "Forward Plus")
+config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Global="*res://global.gd"
-Block="*res://Block.gd"
+Config="*res://Config.cs"
+Block="*res://Block.cs"
 
 [debug]
 
