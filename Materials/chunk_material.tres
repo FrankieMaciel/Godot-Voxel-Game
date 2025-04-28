@@ -4,8 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://drx6mmwsqmroc" path="res://Materials/teste.png" id="2_ud3qs"]
 
 [resource]
+transparency = 2
+alpha_scissor_threshold = 1.0
+alpha_antialiasing_mode = 0
+shading_mode = 2
 albedo_texture = ExtResource("1_ud3qs")
-metallic = 1.0
+metallic_specular = 0.0
 ao_texture = ExtResource("2_ud3qs")
 texture_filter = 0
 distance_fade_min_distance = 80.0

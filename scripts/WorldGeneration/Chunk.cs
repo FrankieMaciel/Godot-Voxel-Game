@@ -8,28 +8,33 @@ public partial class Chunk : Node
 {
 	public Vector3 chunk_position = Vector3.Zero;
 	public MeshGeneration chunk_mesh_node;
-	public List<short> data = [];
+	public List<short> data;
 	public bool isEmpty = true;
+	public bool isCompletlyEmpty = true;
 	public bool isFull = true;
 	public bool wasModified = false;
 	public bool hasMesh = false;
 
 	public Chunk(Vector3 chunks_pos) {
 		chunk_position = chunks_pos;
-		data = [.. Enumerable.Repeat((short)0, (int)Math.Pow(Config.Chunk_size_with_border, 3))];
 		_ = new Generate_chunk(this);
 	}
 
 	public short get_block_at(Vector3 pos) {
+		if (isCompletlyEmpty) return 0;
 		int max_i = Config.Chunk_size_with_border;
-		int index = ((int)pos.X * (max_i * max_i)) + ((int)pos.Y * max_i) + (int)pos.Z;
+		int index = ((int)pos.X * max_i * max_i) + ((int)pos.Y * max_i) + (int)pos.Z;
 		if (index >= data.Count) {
-			return (short)Block.Blocks.Air;
+			return 0;
 		} 
 		return data[index];
 	}
 	
 	public void set_block_at (Vector3 pos, short id) {
+		if (isCompletlyEmpty && id != 0) {
+			data = [.. Enumerable.Repeat((short)0, (int)Math.Pow(Config.Chunk_size_with_border, 3))];
+			isCompletlyEmpty = false;
+		}
 		int max_i = Config.Chunk_size_with_border;
 		int index = ((int)pos.X * (max_i * max_i)) + ((int)pos.Y * max_i) + (int)pos.Z;
 		if (index >= data.Count) { return; } 
@@ -53,13 +58,14 @@ public partial class Chunk : Node
 		return xCheck || yCheck || zCheck;
 	}
 
-	public void Create_mesh(){ 
+	public void Create_mesh(bool isHided){ 
 		remove_mesh();
 		if (chunk_position.Y > Config.World_max_y) return;
 		if (chunk_position.Y < Config.World_min_y) return;
 		if (isEmpty || isFull || hasMesh) return;
 		chunk_mesh_node = new MeshGeneration(this);
 		this.hasMesh = true;
+		if (isHided) hide_mesh();
 		Config.world_node.CallDeferredThreadGroup("add_child", chunk_mesh_node);
 	}
 	

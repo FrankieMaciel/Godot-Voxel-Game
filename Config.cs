@@ -3,7 +3,7 @@ using System;
 
 public partial class Config : Node
 {
-    public static int Chunk_size { get; set; } = 16;
+    public static int Chunk_size { get; set; } = 24;
     public static int Chunk_size_with_border { get; set; } = Chunk_size + 2;
     public static int World_max_y { get; set; } = 256;
     public static int World_min_y { get; set; } = -64;

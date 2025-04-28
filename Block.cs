@@ -12,22 +12,20 @@ public partial class Block : Node
         Stone,
         Dirt,
         Grass,
+        Glass,
+        Flowers,
     };
-    private readonly List<string> textures = [
-        "res://textures/pointer.png",
-        "res://textures/Stone.png",
-        "res://textures/Dirt.png",
-        "res://textures/Grass.png",
-        "res://textures/Grass_Side.png",
-    ];
     public static Material chunk_material = new();
     private Array<Image> images_array = [];
 
     public static System.Collections.Generic.Dictionary<short, Block_Base> id_to_block = new()
     {
+        {0, new Air()},
         {1, new Stone()},
         {2, new Dirt()},
         {3, new Grass()},
+        {4, new Glass()},
+        {5, new Flowers()},
     };
 
     public override void _Ready() {

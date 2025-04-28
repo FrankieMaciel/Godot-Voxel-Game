@@ -13,7 +13,8 @@ public partial class Chunk_ground : Chunk_base
         Vector3 block_global_position = block_position + chunk.chunk_position;
         short block_id = (short)Block.Blocks.Air;
         float value = noise.GetNoise2D(block_global_position.X, block_global_position.Z);
-        if (block_global_position.Y < Math.Round(value * 64) + 8) {
+        float value2 = noise.GetNoise2D(block_global_position.X / 10, block_global_position.Z / 10);
+        if (block_global_position.Y < MathF.Round((float)Math.Sin(value + 1) * 64 * (value2 + 1))) {
             block_id = (short)Block.Blocks.Stone;
         } 
         var cave_value = noise.GetNoise3D(block_global_position.X * 2, block_global_position.Y * 2, block_global_position.Z * 2);

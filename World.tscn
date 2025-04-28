@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://u7vhh53myrc1"]
+[gd_scene load_steps=13 format=3 uid="uid://u7vhh53myrc1"]
 
 [ext_resource type="Script" uid="uid://dgbvtoo34074u" path="res://scripts/WorldGeneration/World.cs" id="1_js7pq"]
 [ext_resource type="Script" uid="uid://ldb30lb2q4yp" path="res://scripts/Player/Player.cs" id="2_js7pq"]
@@ -22,9 +22,20 @@ radiance_size = 0
 [sub_resource type="Environment" id="Environment_p1v5b"]
 background_mode = 2
 sky = SubResource("Sky_eu7l1")
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0.552378, 0.791995, 0.917105, 1)
+fog_density = 1.0
+fog_sky_affect = 0.0
+fog_depth_curve = 7.46426
+fog_depth_begin = 0.0
+fog_depth_end = 320.0
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_2dftf"]
-size = Vector3(0.5, 1.7, 0.5)
+[sub_resource type="BoxShape3D" id="BoxShape3D_js7pq"]
+size = Vector3(0.4, 1.7, 0.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eu7l1"]
+size = Vector3(0.4, 0.9, 0.4)
 
 [sub_resource type="BoxMesh" id="BoxMesh_2dftf"]
 
@@ -38,7 +49,7 @@ environment = SubResource("Environment_p1v5b")
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)
 
 [node name="Player" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 32, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, 0)
 script = ExtResource("2_js7pq")
 
 [node name="Camera3D" type="Camera3D" parent="Player"]
@@ -47,9 +58,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 [node name="RayCast3D" type="RayCast3D" parent="Player/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 target_position = Vector3(0, -5, 0)
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
-shape = SubResource("BoxShape3D_2dftf")
+shape = SubResource("BoxShape3D_js7pq")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.400002, 0)
+shape = SubResource("BoxShape3D_eu7l1")
+disabled = true
 
 [node name="Label" type="Label" parent="Player"]
 offset_right = 40.0
