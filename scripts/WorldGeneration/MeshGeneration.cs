@@ -24,8 +24,11 @@ public partial class MeshGeneration : MeshInstance3D
             for (int side_idx = 0; side_idx < 6; side_idx ++) {
                 Config.DirectionsIndexes side = (Config.DirectionsIndexes)side_idx;
                 short block_at_side = chunk.get_block_at(block_coords + Config.directions[side]);
-                bool isBlockTransparent = Block.id_to_block[block_at_side].isTransparent;
-                if (isBlockTransparent && block_id != block_at_side) {
+                bool isSideBlockTransparent = Block.id_to_block[block_at_side].isTransparent;
+                bool isBlockTransparent = Block.id_to_block[block_id].isTransparent;
+                bool isSolid = Block.id_to_block[block_id].isSolid;
+                bool hasSides = (block_id == block_at_side) && isBlockTransparent;
+                if (!hasSides && isSideBlockTransparent || !isSolid) {
                     create_block(st, block_coords, side, block_id);
                 }
             }
@@ -53,16 +56,11 @@ public partial class MeshGeneration : MeshInstance3D
 
     public void create_block(SurfaceTool st, Vector3 offset, Config.DirectionsIndexes direction, short block_id) {
         offset -= new Vector3(1,1,1);
-        Vector3[][] vertices = Block.id_to_block[block_id].getVertices();
-        Vector2[] UVs = [
-            new Vector2(0,0),
-            new Vector2(1,0),
-            new Vector2(1,1),
-            new Vector2(0,0),
-            new Vector2(1,1),
-            new Vector2(0,1)
-        ];
         int direction_index = (int)direction;
+        Vector3[][] vertices = Block.id_to_block[block_id].getVertices();
+        if (direction_index >= vertices.Length) return;
+        bool[] isInverted = Block.id_to_block[block_id].getSides();
+        Vector2[] UVs = Block.id_to_block[block_id].getUvs(isInverted[direction_index]);
         Vector2 blockUVOffset = getTextureIdexUV(Block.id_to_block[block_id].GetTexture(Config.directions[direction]));
         //GD.Print(blockUVOffset);
         for (int v = 0; v < 6; v++) {

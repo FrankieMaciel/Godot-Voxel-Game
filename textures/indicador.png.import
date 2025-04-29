@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bm2dcswwu8d8p"
-path.bptc="res://.godot/imported/Grass.png-bd5a84592b65ab0ca16777ba84678713.bptc.ctex"
-path.astc="res://.godot/imported/Grass.png-bd5a84592b65ab0ca16777ba84678713.astc.ctex"
+uid="uid://dq55n4iuxgd1y"
+path.s3tc="res://.godot/imported/indicador.png-0917806e3e3585203418d04db4435b51.s3tc.ctex"
+path.etc2="res://.godot/imported/indicador.png-0917806e3e3585203418d04db4435b51.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,13 +12,13 @@ metadata={
 
 [deps]
 
-source_file="res://Materials/Grass.png"
-dest_files=["res://.godot/imported/Grass.png-bd5a84592b65ab0ca16777ba84678713.bptc.ctex", "res://.godot/imported/Grass.png-bd5a84592b65ab0ca16777ba84678713.astc.ctex"]
+source_file="res://textures/indicador.png"
+dest_files=["res://.godot/imported/indicador.png-0917806e3e3585203418d04db4435b51.s3tc.ctex", "res://.godot/imported/indicador.png-0917806e3e3585203418d04db4435b51.etc2.ctex"]
 
 [params]
 
 compress/mode=2
-compress/high_quality=true
+compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0

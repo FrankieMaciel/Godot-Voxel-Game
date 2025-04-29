@@ -5,6 +5,7 @@ public partial class Flowers : Block_Base
 {
     public override bool isTransparent => true;
     public override bool hasCollision => false;
+    public override bool isSolid {get;} = false;
     public override short GetTexture(Vector3 normal)
     {
         if (normal == new Vector3(0,1,0)) return 6;

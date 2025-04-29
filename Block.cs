@@ -14,6 +14,7 @@ public partial class Block : Node
         Grass,
         Glass,
         Flowers,
+        TallGrass,
     };
     public static Material chunk_material = new();
     private Array<Image> images_array = [];
@@ -26,6 +27,7 @@ public partial class Block : Node
         {3, new Grass()},
         {4, new Glass()},
         {5, new Flowers()},
+        {6, new TallGrass()},
     };
 
     public override void _Ready() {

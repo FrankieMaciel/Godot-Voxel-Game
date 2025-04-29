@@ -20,11 +20,13 @@ public partial class Player : CharacterBody3D
     public Vector3 player_chunk;
     bool debugMode = false;
     public bool isEsgueirado = false;
+    MeshInstance3D indicator;
 
      public Player() {
      }
     public override void _Ready()
     {
+        indicator = GetNode<MeshInstance3D>("indicator");
         playerCam = GetNode<Camera3D>("Camera3D");
         playerRay = GetNode<RayCast3D>("Camera3D/RayCast3D");
         Input.SetMouseMode(Input.MouseModeEnum.Captured);
@@ -92,6 +94,13 @@ public partial class Player : CharacterBody3D
     }
     public override void _PhysicsProcess(double delta)
     {
+        if (playerRay.IsColliding()) {
+            indicator.Visible = true;
+            indicator.GlobalPosition = (playerRay.GetCollisionPoint() - (playerRay.GetCollisionNormal() / 16)).Floor();
+            indicator.GlobalPosition += new Vector3(0.5f,0.5f,0.5f);
+        } else {
+            indicator.Visible = false;
+        }
         if (Config.is_paused) return;
         if (Config.world_node.block_on_top_of_player == 0 && isEsgueirado && !Input.IsKeyPressed(Key.Shift)) {
             CollisionShape3D playerColl = GetNode<CollisionShape3D>("CollisionShape3D2");

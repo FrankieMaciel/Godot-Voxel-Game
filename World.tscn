@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://u7vhh53myrc1"]
+[gd_scene load_steps=16 format=3 uid="uid://u7vhh53myrc1"]
 
 [ext_resource type="Script" uid="uid://dgbvtoo34074u" path="res://scripts/WorldGeneration/World.cs" id="1_js7pq"]
 [ext_resource type="Script" uid="uid://ldb30lb2q4yp" path="res://scripts/Player/Player.cs" id="2_js7pq"]
 [ext_resource type="Script" uid="uid://b073tmwnwibjv" path="res://scripts/Ui/RenderDistance.cs" id="3_js7pq"]
 [ext_resource type="Texture2D" uid="uid://c1xvpq6gyf6fh" path="res://textures/pointer.png" id="4_js7pq"]
+[ext_resource type="Shader" uid="uid://c05irnknqd0h8" path="res://scripts/indicator.gdshader" id="5_eu7l1"]
 
 [sub_resource type="Gradient" id="Gradient_2dftf"]
 colors = PackedColorArray(0.702154, 0.785672, 0.915872, 1, 0.360411, 0.663411, 0.813425, 1)
@@ -36,6 +37,19 @@ size = Vector3(0.4, 1.7, 0.4)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_eu7l1"]
 size = Vector3(0.4, 0.9, 0.4)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eu7l1"]
+render_priority = 0
+shader = ExtResource("5_eu7l1")
+shader_parameter/scale = Vector3(1, 1, 1)
+shader_parameter/width = 0.006
+shader_parameter/sharpness = 1.0
+shader_parameter/glow = 1.0
+shader_parameter/color = Vector4(0, 0, 0, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wygdx"]
+material = SubResource("ShaderMaterial_eu7l1")
+size = Vector3(1.01, 1.01, 1.01)
 
 [sub_resource type="BoxMesh" id="BoxMesh_2dftf"]
 
@@ -124,6 +138,11 @@ offset_bottom = 4.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_js7pq")
+
+[node name="indicator" type="MeshInstance3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, 0)
+top_level = true
+mesh = SubResource("BoxMesh_wygdx")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0)
